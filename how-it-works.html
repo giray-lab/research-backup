@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="How Giray Research Backup uses restic, rclone, OAuth and Google Drive for encrypted backups.">
+  <meta name="color-scheme" content="light">
+  <title>How it works | Giray Research Backup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="masthead"><div class="wrap topbar"><a class="brand" href="./" aria-label="Giray Research Backup project overview"><span class="mark" aria-hidden="true">◇</span>Giray Research Backup</a><nav class="nav" aria-label="Project navigation"><a href="./">Overview</a><a href="how-it-works.html" aria-current="page">How it works</a><a href="privacy.html">Privacy policy</a></nav></div></header>
+  <main>
+  <div class="wrap subhero"><span class="eyebrow">Workflow documentation</span><h1>How it works</h1><p class="lede">A short explanation of the backup architecture and security boundaries.</p></div>
+  <article class="document wrap">
+    <h2>1. Select eligible local sources</h2><p>The owner reviews which files or folders to include. The backup workflow is not designed to automatically capture every file on the computer. Restricted data, downloaded third-party publications, and secrets are excluded unless their use is separately permitted and intentionally configured.</p>
+    <h2>2. Encrypt with restic</h2><p><strong>restic</strong> prepares encrypted, deduplicated repository data on the originating computer. Separate repositories and recovery credentials can be maintained for distinct devices. A restic password is needed to decrypt backup content.</p>
+    <h2>3. Transfer with rclone</h2><p><strong>rclone</strong> connects to the owner's Google Drive account using OAuth 2.0. The application requests the <code>https://www.googleapis.com/auth/drive.file</code> permission rather than unrestricted full-Drive access. The workflow may also query quota and relevant metadata to validate the target account and repository.</p>
+    <h2>4. Verify and restore</h2><p>The owner can run repository consistency checks and restore snapshots to isolated destinations. A successful upload alone is not treated as proof that files can be restored. Restore verification and periodic authorization renewal may be required.</p>
+    <h2>5. Control access and retention</h2><p>OAuth tokens and restic recovery credentials are stored in restricted, device-local locations. Google Drive stores the encrypted backup objects, while the owner controls backup source policies and deletion. Revoking OAuth does not automatically remove data already stored in Drive.</p>
+    <div class="notice"><p><strong>Privacy:</strong> This documentation does not provide access to stored backups or reveal local credentials. Read the <a href="privacy.html">Privacy Policy</a> for data use, retention, and contact information.</p></div>
+    <p class="small">Project description updated October 12, 2026. Features described are for a private, owner-operated workflow; deployment and backup coverage depend on its explicitly approved configuration.</p>
+    <p><a href="./">← Return to overview</a></p>
+  </article>
+</main>
+  <footer><div class="wrap foot"><span>© 2026 Giray Research Backup · Independent personal project</span><nav class="footnav" aria-label="Footer navigation"><a href="./">Overview</a><a href="how-it-works.html">How it works</a><a href="privacy.html">Privacy policy</a></nav></div></footer>
+</body>
+</html>
